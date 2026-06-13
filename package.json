@@ -1,0 +1,12 @@
+{
+  "name": "ai-slop-blocker",
+  "version": "0.1.0",
+  "private": true,
+  "description": "A Chrome extension that hides content explicitly labeled as AI-generated or synthetic.",
+  "scripts": {
+    "test": "node scripts/validate.mjs",
+    "package": "powershell -ExecutionPolicy Bypass -File scripts/package.ps1"
+  },
+  "license": "MIT"
+}
+

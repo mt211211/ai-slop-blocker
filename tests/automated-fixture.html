@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Automated detector fixture</title>
+    <link rel="stylesheet" href="../extension/content.css">
+    <script>
+      window.chrome = {
+        storage: {
+          local: { get: async () => ({ enabled: true }) },
+          onChanged: { addListener: () => {} }
+        },
+        runtime: {
+          onMessage: { addListener: () => {} },
+          sendMessage: async () => {}
+        }
+      };
+    </script>
+  </head>
+  <body>
+    <article id="disclosure"><h2>AI Overview</h2><p>Should be hidden.</p></article>
+    <figure id="image"><img alt="AI-generated landscape"><figcaption>Should be hidden.</figcaption></figure>
+    <article id="metadata" data-ai-generated="true"><h2>Metadata marker</h2></article>
+    <article id="human"><h2>Ordinary human post</h2><p>Should remain.</p></article>
+    <output id="result">PENDING</output>
+    <script src="../extension/content.js"></script>
+    <script>
+      window.setTimeout(() => {
+        const hidden = ["disclosure", "image", "metadata"].every((id) =>
+          document.getElementById(id).classList.contains("ai-slop-blocker-hidden")
+        );
+        const humanVisible = !document.getElementById("human").classList.contains("ai-slop-blocker-hidden");
+        document.getElementById("result").textContent = hidden && humanVisible ? "PASS" : "FAIL";
+      }, 250);
+    </script>
+  </body>
+</html>
+

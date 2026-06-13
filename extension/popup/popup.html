@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>AI Slop Blocker</title>
+    <link rel="stylesheet" href="popup.css">
+  </head>
+  <body>
+    <main class="popup">
+      <header>
+        <img src="../icons/icon-48.png" width="48" height="48" alt="">
+        <div>
+          <p class="eyebrow">A quieter internet</p>
+          <h1>AI Slop Blocker</h1>
+        </div>
+      </header>
+
+      <section class="switch-card" id="switchCard">
+        <div>
+          <strong id="statusText">Checking...</strong>
+          <span id="statusHint">Reading the room.</span>
+        </div>
+        <button class="toggle" id="toggle" type="button" role="switch" aria-checked="false" aria-label="Turn AI Slop Blocker on">
+          <span></span>
+        </button>
+      </section>
+
+      <section class="count-card" aria-live="polite">
+        <strong id="count">0</strong>
+        <span>pieces hidden on this page</span>
+      </section>
+
+      <p class="fine-print">
+        Detects explicit AI labels and known patterns locally. It cannot catch
+        unlabeled AI content with certainty.
+      </p>
+
+      <footer>
+        <a href="https://mt211211.github.io/ai-slop-blocker/" target="_blank">How it works</a>
+        <a href="https://buy.stripe.com/4gM6oAcYef713Vnf0if3a0h" target="_blank">Fund a Big Mac</a>
+      </footer>
+    </main>
+    <script src="popup.js"></script>
+  </body>
+</html>
+

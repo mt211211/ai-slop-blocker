@@ -1,0 +1,161 @@
+:root {
+  color-scheme: light;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color: #171510;
+  background: #f7f1e5;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  width: 340px;
+  margin: 0;
+  background:
+    radial-gradient(circle at 90% 5%, rgba(255, 203, 69, 0.55), transparent 34%),
+    #f7f1e5;
+}
+
+.popup {
+  padding: 20px;
+}
+
+header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+header img {
+  border-radius: 13px;
+  box-shadow: 0 4px 0 rgba(23, 21, 16, 0.18);
+}
+
+.eyebrow {
+  margin: 0 0 2px;
+  color: #665f51;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+h1 {
+  margin: 0;
+  font-size: 21px;
+  letter-spacing: -0.04em;
+}
+
+.switch-card,
+.count-card {
+  border: 2px solid #171510;
+  border-radius: 16px;
+  background: #fffdf8;
+  box-shadow: 4px 4px 0 #171510;
+}
+
+.switch-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 14px;
+}
+
+.switch-card strong,
+.switch-card span {
+  display: block;
+}
+
+.switch-card strong {
+  margin-bottom: 2px;
+  font-size: 16px;
+}
+
+.switch-card div > span {
+  color: #665f51;
+  font-size: 12px;
+}
+
+.toggle {
+  position: relative;
+  flex: 0 0 auto;
+  width: 58px;
+  height: 34px;
+  padding: 0;
+  border: 2px solid #171510;
+  border-radius: 999px;
+  background: #d6d0c4;
+  cursor: pointer;
+  transition: background 140ms ease;
+}
+
+.toggle span {
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  width: 22px;
+  height: 22px;
+  border: 2px solid #171510;
+  border-radius: 50%;
+  background: #fffdf8;
+  transition: transform 140ms ease;
+}
+
+.toggle[aria-checked="true"] {
+  background: #ffcb45;
+}
+
+.toggle[aria-checked="true"] span {
+  transform: translateX(24px);
+}
+
+.toggle:focus-visible,
+a:focus-visible {
+  outline: 3px solid #168c8c;
+  outline-offset: 3px;
+}
+
+.count-card {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin-top: 14px;
+  padding: 12px 14px;
+}
+
+.count-card strong {
+  color: #f43f2f;
+  font-size: 28px;
+}
+
+.count-card span {
+  color: #665f51;
+  font-size: 12px;
+}
+
+.fine-print {
+  margin: 14px 2px;
+  color: #665f51;
+  font-size: 11px;
+  line-height: 1.45;
+}
+
+footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  border-top: 1px solid #d6d0c4;
+  padding-top: 12px;
+}
+
+a {
+  color: #171510;
+  font-size: 12px;
+  font-weight: 800;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+}
+
