@@ -16,7 +16,7 @@ Prepared June 13, 2026.
 3. Upload `outputs/ai-slop-blocker-v0.1.0.zip`.
 4. Complete the **Store listing** tab using `store/STORE_LISTING.md`.
 5. Upload:
-   - `store/assets/store-icon-128.png` as the store icon if requested.
+   - `store/assets/store-icon-128.png` as the required store icon.
    - `store/assets/screenshot-1280x800.png` as the required screenshot.
    - `store/assets/promo-small-440x280.png` as the required small promo tile.
 6. Add the homepage, support, and privacy-policy URLs from the listing copy.
