@@ -4,6 +4,8 @@ const toggle = document.querySelector("#toggle");
 const statusText = document.querySelector("#statusText");
 const statusHint = document.querySelector("#statusHint");
 const count = document.querySelector("#count");
+const pickerButton = document.querySelector("#pickerButton");
+const rulesButton = document.querySelector("#rulesButton");
 
 init();
 
@@ -18,6 +20,26 @@ toggle.addEventListener("click", async () => {
   await chrome.storage.local.set({ enabled: nextEnabled });
   render(nextEnabled);
   window.setTimeout(refreshPageCount, 100);
+});
+
+pickerButton.addEventListener("click", async () => {
+  const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+  if (!tab?.id) {
+    return;
+  }
+
+  await chrome.storage.local.set({ enabled: true });
+
+  try {
+    await chrome.tabs.sendMessage(tab.id, { type: "AI_SLOP_START_PICKER" });
+    window.close();
+  } catch {
+    statusHint.textContent = "This page cannot be picked. Try a normal website.";
+  }
+});
+
+rulesButton.addEventListener("click", () => {
+  chrome.runtime.openOptionsPage();
 });
 
 chrome.storage.onChanged.addListener((changes, areaName) => {
@@ -57,4 +79,3 @@ function render(enabled) {
     count.textContent = "0";
   }
 }
-

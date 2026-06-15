@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Personal Filters | AI Slop Blocker</title>
+    <link rel="stylesheet" href="options.css">
+  </head>
+  <body>
+    <main>
+      <header>
+        <img src="../icons/icon-128.png" width="72" height="72" alt="">
+        <div>
+          <p class="eyebrow">Your private filter list</p>
+          <h1>Personal filters</h1>
+          <p>Rules stay on this device. They are never uploaded or shared.</p>
+        </div>
+      </header>
+
+      <section class="card">
+        <h2>Add a filter</h2>
+        <form id="ruleForm">
+          <label>
+            Filter type
+            <select id="ruleType">
+              <option value="phrase">Phrase or label</option>
+              <option value="creator-url">Creator or channel URL</option>
+              <option value="content-url">Specific content URL</option>
+            </select>
+          </label>
+          <label>
+            Value
+            <input id="ruleValue" type="text" required placeholder="Example: AI animation">
+          </label>
+          <label>
+            Website restriction <span>(optional)</span>
+            <input id="ruleHost" type="text" placeholder="Example: youtube.com">
+          </label>
+          <button class="primary" type="submit">Add filter</button>
+        </form>
+        <p class="hint">
+          The easiest method is the extension popup's “Block something as AI”
+          picker, which creates a filter from the page for you.
+        </p>
+      </section>
+
+      <section class="card">
+        <div class="section-heading">
+          <div>
+            <h2>Saved filters</h2>
+            <p id="ruleCount">0 rules</p>
+          </div>
+          <button id="clearButton" class="danger" type="button">Clear all</button>
+        </div>
+        <div id="emptyState" class="empty">No personal filters yet.</div>
+        <ul id="ruleList"></ul>
+      </section>
+
+      <p id="notice" class="notice" aria-live="polite"></p>
+    </main>
+    <script src="options.js"></script>
+  </body>
+</html>
+

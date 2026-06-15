@@ -49,11 +49,28 @@ h1 {
 }
 
 .switch-card,
-.count-card {
+.count-card,
+.picker-button {
   border: 2px solid #171510;
   border-radius: 16px;
   background: #fffdf8;
   box-shadow: 4px 4px 0 #171510;
+}
+
+.picker-button {
+  width: 100%;
+  margin-top: 14px;
+  padding: 12px 14px;
+  color: #171510;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 900;
+  text-align: left;
+  cursor: pointer;
+}
+
+.picker-button:hover {
+  background: #ffcb45;
 }
 
 .switch-card {
@@ -151,6 +168,20 @@ footer {
   padding-top: 12px;
 }
 
+footer button {
+  border: 0;
+  padding: 0;
+  background: transparent;
+  color: #171510;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 800;
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+
 a {
   color: #171510;
   font-size: 12px;
@@ -158,4 +189,3 @@ a {
   text-decoration-thickness: 2px;
   text-underline-offset: 3px;
 }
-

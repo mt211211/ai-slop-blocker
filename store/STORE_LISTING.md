@@ -30,6 +30,9 @@ Features:
 - One clear on/off switch
 - Automatically scans pages while enabled
 - Handles content added after page load
+- Lets users teach the extension by selecting unlabeled content
+- Supports a private personal filter list for phrases, creators, channels, and
+  specific content
 - Restores hidden content immediately when switched off
 - Runs entirely in your browser
 - No analytics, accounts, or browsing-data collection
@@ -38,8 +41,8 @@ Important limitation:
 
 No browser extension can reliably identify every piece of unlabeled
 AI-generated text, image, or video. AI Slop Blocker detects explicit
-disclosures, metadata, and known AI UI patterns. It will miss some content and
-may occasionally hide a false positive.
+disclosures, metadata, known AI UI patterns, and filters personally created by
+the user. It will miss some content and may occasionally hide a false positive.
 
 ## Single purpose
 
@@ -58,4 +61,3 @@ https://github.com/mt211211/ai-slop-blocker/issues
 ## Privacy policy
 
 https://mt211211.github.io/ai-slop-blocker/privacy.html
-

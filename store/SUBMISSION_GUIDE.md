@@ -7,13 +7,13 @@ Prepared June 13, 2026.
 1. Test the unpacked `extension` folder in Chrome.
 2. Run `node scripts/validate.mjs`.
 3. Run `powershell -ExecutionPolicy Bypass -File scripts/package.ps1`.
-4. Confirm `outputs/ai-slop-blocker-v0.1.0.zip` contains `manifest.json` at its root.
+4. Confirm the newest `outputs/ai-slop-blocker-v*.zip` contains `manifest.json` at its root.
 
 ## Upload and submit
 
 1. Sign in to the [Chrome Web Store Developer Dashboard](https://chrome.google.com/webstore/devconsole/).
 2. Select **New item**.
-3. Upload `outputs/ai-slop-blocker-v0.1.0.zip`.
+3. Upload the newest `outputs/ai-slop-blocker-v*.zip`.
 4. Complete the **Store listing** tab using `store/STORE_LISTING.md`.
 5. Upload:
    - `store/assets/store-icon-128.png` as the required store icon.

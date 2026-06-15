@@ -8,7 +8,20 @@
     <script>
       window.chrome = {
         storage: {
-          local: { get: async () => ({ enabled: true }) },
+          local: {
+            get: async () => ({
+              enabled: true,
+              personalRules: [
+                {
+                  id: "youtube-content-rule",
+                  type: "content-url",
+                  value: "youtube.com/watch?v=blocked",
+                  label: "Blocked video",
+                  host: "youtube.com"
+                }
+              ]
+            })
+          },
           onChanged: { addListener: () => {} }
         },
         runtime: {
@@ -26,7 +39,10 @@
             <a id="video-title" title="That's AI (2026) - Short Film">That's AI (2026) - Short Film</a>
           </ytd-rich-item-renderer>
           <ytd-rich-item-renderer id="human-card">
-            <a id="video-title" title="A normal cooking video">A normal cooking video</a>
+            <a id="video-title" href="https://www.youtube.com/watch?v=human" title="A normal cooking video">A normal cooking video</a>
+          </ytd-rich-item-renderer>
+          <ytd-rich-item-renderer id="user-blocked-card">
+            <a id="video-title" href="https://www.youtube.com/watch?v=blocked" title="An unlabeled video">An unlabeled video</a>
           </ytd-rich-item-renderer>
         </div>
       </ytd-browse>
@@ -43,11 +59,12 @@
       window.setTimeout(() => {
         const aiCardHidden = document.getElementById("ai-card").classList.contains("ai-slop-blocker-hidden");
         const humanCardVisible = !document.getElementById("human-card").classList.contains("ai-slop-blocker-hidden");
+        const userBlockedCardHidden = document.getElementById("user-blocked-card").classList.contains("ai-slop-blocker-hidden");
         const browseVisible = !document.getElementById("browse").classList.contains("ai-slop-blocker-hidden");
         const playerHidden = document.getElementById("player-container-outer").classList.contains("ai-slop-blocker-hidden");
         const metadataHidden = document.getElementById("watch-metadata").classList.contains("ai-slop-blocker-hidden");
         document.getElementById("result").textContent =
-          aiCardHidden && humanCardVisible && browseVisible && playerHidden && metadataHidden ? "PASS" : "FAIL";
+          aiCardHidden && humanCardVisible && userBlockedCardHidden && browseVisible && playerHidden && metadataHidden ? "PASS" : "FAIL";
       }, 350);
     </script>
   </body>

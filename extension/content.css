@@ -4,3 +4,77 @@
   user-select: none !important;
 }
 
+.ai-slop-blocker-picker-target {
+  outline: 5px solid #f43f2f !important;
+  outline-offset: -5px !important;
+  cursor: crosshair !important;
+}
+
+.ai-slop-blocker-picker-notice,
+.ai-slop-blocker-picker-chooser {
+  all: initial !important;
+  position: fixed !important;
+  z-index: 2147483647 !important;
+  right: 20px !important;
+  bottom: 20px !important;
+  border: 3px solid #171510 !important;
+  border-radius: 14px !important;
+  padding: 14px !important;
+  background: #fffdf8 !important;
+  box-shadow: 6px 6px 0 #171510 !important;
+  color: #171510 !important;
+  font: 800 14px/1.35 system-ui, sans-serif !important;
+}
+
+.ai-slop-blocker-picker-notice {
+  background: #ffcb45 !important;
+}
+
+.ai-slop-blocker-picker-chooser {
+  display: grid !important;
+  width: min(360px, calc(100vw - 40px)) !important;
+  gap: 6px !important;
+}
+
+.ai-slop-blocker-picker-chooser strong,
+.ai-slop-blocker-picker-chooser span,
+.ai-slop-blocker-picker-actions {
+  all: initial !important;
+  display: block !important;
+  color: #171510 !important;
+  font-family: system-ui, sans-serif !important;
+}
+
+.ai-slop-blocker-picker-chooser strong {
+  font-size: 17px !important;
+  font-weight: 900 !important;
+}
+
+.ai-slop-blocker-picker-chooser span {
+  color: #665f51 !important;
+  font-size: 12px !important;
+}
+
+.ai-slop-blocker-picker-actions {
+  display: grid !important;
+  grid-template-columns: 1fr !important;
+  gap: 7px !important;
+  margin-top: 8px !important;
+}
+
+.ai-slop-blocker-picker-actions button {
+  all: initial !important;
+  min-height: 38px !important;
+  border: 2px solid #171510 !important;
+  border-radius: 9px !important;
+  padding: 0 10px !important;
+  background: #ffcb45 !important;
+  color: #171510 !important;
+  font: 800 12px/38px system-ui, sans-serif !important;
+  cursor: pointer !important;
+}
+
+.ai-slop-blocker-picker-actions button:disabled {
+  opacity: 0.45 !important;
+  cursor: not-allowed !important;
+}

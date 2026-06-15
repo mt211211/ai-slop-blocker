@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="ai-slop-blocker-test-host" content="example.com">
+    <title>Personal rules fixture</title>
+    <link rel="stylesheet" href="../extension/content.css">
+    <script>
+      window.chrome = {
+        storage: {
+          local: {
+            get: async () => ({
+              enabled: true,
+              personalRules: [
+                {
+                  id: "creator-rule",
+                  type: "creator-url",
+                  value: "example.com/@slop-maker",
+                  label: "Slop Maker",
+                  host: "example.com"
+                },
+                {
+                  id: "phrase-rule",
+                  type: "phrase",
+                  value: "robot soup",
+                  label: "robot soup",
+                  host: ""
+                }
+              ]
+            })
+          },
+          onChanged: { addListener: () => {} }
+        },
+        runtime: {
+          onMessage: { addListener: () => {} },
+          sendMessage: async () => {}
+        }
+      };
+    </script>
+  </head>
+  <body>
+    <article id="creator-post">
+      <a rel="author" href="https://example.com/@slop-maker">Slop Maker</a>
+      <p>An otherwise unlabeled post.</p>
+    </article>
+    <article id="phrase-post"><p>Tonight we are serving robot soup.</p></article>
+    <article id="human-post"><p>An ordinary human post.</p></article>
+    <output id="result">PENDING</output>
+    <script src="../extension/content.js"></script>
+    <script>
+      window.setTimeout(() => {
+        const creatorHidden = document.getElementById("creator-post").classList.contains("ai-slop-blocker-hidden");
+        const phraseHidden = document.getElementById("phrase-post").classList.contains("ai-slop-blocker-hidden");
+        const humanVisible = !document.getElementById("human-post").classList.contains("ai-slop-blocker-hidden");
+        document.getElementById("result").textContent =
+          creatorHidden && phraseHidden && humanVisible ? "PASS" : "FAIL";
+      }, 350);
+    </script>
+  </body>
+</html>
+

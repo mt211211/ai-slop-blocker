@@ -18,6 +18,7 @@ assert.ok(
 const referencedFiles = [
   manifest.background.service_worker,
   manifest.action.default_popup,
+  manifest.options_page,
   ...manifest.content_scripts.flatMap((entry) => [...(entry.js ?? []), ...(entry.css ?? [])]),
   ...Object.values(manifest.icons),
   ...Object.values(manifest.action.default_icon)
@@ -30,7 +31,8 @@ for (const file of new Set(referencedFiles)) {
 for (const file of [
   "extension/background.js",
   "extension/content.js",
-  "extension/popup/popup.js"
+  "extension/popup/popup.js",
+  "extension/options/options.js"
 ]) {
   execFileSync(process.execPath, ["--check", resolve(root, file)], { stdio: "inherit" });
 }
@@ -56,6 +58,7 @@ const chrome = chromeCandidates.find((candidate) => {
 if (chrome) {
   for (const fixture of [
     "automated-fixture.html",
+    "personal-rules-fixture.html",
     "x-regression-fixture.html",
     "youtube-regression-fixture.html"
   ]) {

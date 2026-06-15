@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="ai-slop-blocker-test-host" content="x.com">
+    <title>Unpacked extension picker fixture</title>
+    <style>
+      body { max-width: 680px; margin: 40px auto; font: 18px system-ui; }
+      article { min-height: 120px; border: 2px solid #222; padding: 18px; }
+    </style>
+  </head>
+  <body>
+    <section id="feed" role="feed" aria-label="Home timeline">
+      <article id="picked-post" data-testid="tweet">
+        <a href="/slopmaker">Slop Maker</a>
+        <a href="/slopmaker/status/123">Post link</a>
+        <p>An unlabeled generated-looking post.</p>
+      </article>
+      <article id="same-creator-post" data-testid="tweet">
+        <a href="/slopmaker">Slop Maker</a>
+        <a href="/slopmaker/status/456">Post link</a>
+        <p>Another unlabeled post from the same creator.</p>
+      </article>
+      <article id="human-post" data-testid="tweet">
+        <a href="/normalperson">Normal Person</a>
+        <a href="/normalperson/status/789">Post link</a>
+        <p>An ordinary human post.</p>
+      </article>
+    </section>
+  </body>
+</html>
+
