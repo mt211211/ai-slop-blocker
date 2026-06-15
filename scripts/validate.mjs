@@ -54,13 +54,19 @@ const chrome = chromeCandidates.find((candidate) => {
 });
 
 if (chrome) {
-  const fixtureUrl = `file:///${resolve(root, "tests/automated-fixture.html").replaceAll("\\", "/")}`;
-  const output = execFileSync(
-    chrome,
-    ["--headless=new", "--disable-gpu", "--virtual-time-budget=1000", "--dump-dom", fixtureUrl],
-    { encoding: "utf8" }
-  );
-  assert.match(output, /<output id="result">PASS<\/output>/, "Detector fixture must pass");
+  for (const fixture of [
+    "automated-fixture.html",
+    "x-regression-fixture.html",
+    "youtube-regression-fixture.html"
+  ]) {
+    const fixtureUrl = `file:///${resolve(root, `tests/${fixture}`).replaceAll("\\", "/")}`;
+    const output = execFileSync(
+      chrome,
+      ["--headless=new", "--disable-gpu", "--virtual-time-budget=1200", "--dump-dom", fixtureUrl],
+      { encoding: "utf8" }
+    );
+    assert.match(output, /<output id="result">PASS<\/output>/, `${fixture} must pass`);
+  }
 }
 
-console.log("Validation passed: manifest, assets, JavaScript syntax, and detector fixture are ready.");
+console.log("Validation passed: manifest, assets, JavaScript syntax, and all detector fixtures are ready.");

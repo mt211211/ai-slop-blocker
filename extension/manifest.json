@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "AI Slop Blocker",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Hides web content explicitly labeled as AI-generated or synthetic.",
   "homepage_url": "https://mt211211.github.io/ai-slop-blocker/",
   "permissions": [
@@ -42,4 +42,3 @@
     "128": "icons/icon-128.png"
   }
 }
-

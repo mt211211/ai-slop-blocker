@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="ai-slop-blocker-test-host" content="youtube.com">
+    <title>YouTube regression fixture</title>
+    <link rel="stylesheet" href="../extension/content.css">
+    <script>
+      window.chrome = {
+        storage: {
+          local: { get: async () => ({ enabled: true }) },
+          onChanged: { addListener: () => {} }
+        },
+        runtime: {
+          onMessage: { addListener: () => {} },
+          sendMessage: async () => {}
+        }
+      };
+    </script>
+  </head>
+  <body>
+    <ytd-app id="app">
+      <ytd-browse id="browse">
+        <div id="contents">
+          <ytd-rich-item-renderer id="ai-card">
+            <a id="video-title" title="That's AI (2026) - Short Film">That's AI (2026) - Short Film</a>
+          </ytd-rich-item-renderer>
+          <ytd-rich-item-renderer id="human-card">
+            <a id="video-title" title="A normal cooking video">A normal cooking video</a>
+          </ytd-rich-item-renderer>
+        </div>
+      </ytd-browse>
+
+      <div id="player-container-outer">Video player</div>
+      <ytd-watch-metadata id="watch-metadata">
+        <h1>Made by AI: a short film</h1>
+      </ytd-watch-metadata>
+    </ytd-app>
+
+    <output id="result">PENDING</output>
+    <script src="../extension/content.js"></script>
+    <script>
+      window.setTimeout(() => {
+        const aiCardHidden = document.getElementById("ai-card").classList.contains("ai-slop-blocker-hidden");
+        const humanCardVisible = !document.getElementById("human-card").classList.contains("ai-slop-blocker-hidden");
+        const browseVisible = !document.getElementById("browse").classList.contains("ai-slop-blocker-hidden");
+        const playerHidden = document.getElementById("player-container-outer").classList.contains("ai-slop-blocker-hidden");
+        const metadataHidden = document.getElementById("watch-metadata").classList.contains("ai-slop-blocker-hidden");
+        document.getElementById("result").textContent =
+          aiCardHidden && humanCardVisible && browseVisible && playerHidden && metadataHidden ? "PASS" : "FAIL";
+      }, 350);
+    </script>
+  </body>
+</html>

@@ -22,6 +22,10 @@
     <figure id="image"><img alt="AI-generated landscape"><figcaption>Should be hidden.</figcaption></figure>
     <article id="metadata" data-ai-generated="true"><h2>Metadata marker</h2></article>
     <article id="human"><h2>Ordinary human post</h2><p>Should remain.</p></article>
+    <section id="unsafe-feed" data-ai-generated="true">
+      <article>First normal feed item</article>
+      <article>Second normal feed item</article>
+    </section>
     <output id="result">PENDING</output>
     <script src="../extension/content.js"></script>
     <script>
@@ -30,9 +34,9 @@
           document.getElementById(id).classList.contains("ai-slop-blocker-hidden")
         );
         const humanVisible = !document.getElementById("human").classList.contains("ai-slop-blocker-hidden");
-        document.getElementById("result").textContent = hidden && humanVisible ? "PASS" : "FAIL";
+        const feedVisible = !document.getElementById("unsafe-feed").classList.contains("ai-slop-blocker-hidden");
+        document.getElementById("result").textContent = hidden && humanVisible && feedVisible ? "PASS" : "FAIL";
       }, 250);
     </script>
   </body>
 </html>
-

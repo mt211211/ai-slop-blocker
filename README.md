@@ -50,7 +50,7 @@ Create the Chrome Web Store upload zip:
 powershell -ExecutionPolicy Bypass -File scripts/package.ps1
 ```
 
-The package is written to `outputs/ai-slop-blocker-v0.1.0.zip`.
+The package is written to `outputs/ai-slop-blocker-v0.2.0.zip`.
 
 ## Links
 
@@ -61,4 +61,3 @@ The package is written to `outputs/ai-slop-blocker-v0.1.0.zip`.
 ## License
 
 MIT
-

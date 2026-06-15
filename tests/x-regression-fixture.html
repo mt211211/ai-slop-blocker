@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="ai-slop-blocker-test-host" content="x.com">
+    <title>X regression fixture</title>
+    <link rel="stylesheet" href="../extension/content.css">
+    <script>
+      window.chrome = {
+        storage: {
+          local: { get: async () => ({ enabled: true }) },
+          onChanged: { addListener: () => {} }
+        },
+        runtime: {
+          onMessage: { addListener: () => {} },
+          sendMessage: async () => {}
+        }
+      };
+    </script>
+  </head>
+  <body>
+    <main role="main">
+      <section id="feed" role="feed" aria-label="Home timeline">
+        <article id="ai-post" data-testid="tweet">
+          <p>My AI-generated image.</p>
+        </article>
+        <article id="human-post" data-testid="tweet">
+          <p>An ordinary human post.</p>
+        </article>
+      </section>
+    </main>
+    <output id="result">PENDING</output>
+    <script src="../extension/content.js"></script>
+    <script>
+      window.setTimeout(() => {
+        const dynamicPost = document.createElement("article");
+        dynamicPost.id = "dynamic-ai-post";
+        dynamicPost.dataset.testid = "tweet";
+        dynamicPost.innerHTML = "<p>New AI-generated video.</p>";
+        document.getElementById("feed").append(dynamicPost);
+      }, 80);
+
+      window.setTimeout(() => {
+        const feedVisible = !document.getElementById("feed").classList.contains("ai-slop-blocker-hidden");
+        const aiPostHidden = document.getElementById("ai-post").classList.contains("ai-slop-blocker-hidden");
+        const dynamicPostHidden = document.getElementById("dynamic-ai-post").classList.contains("ai-slop-blocker-hidden");
+        const humanPostVisible = !document.getElementById("human-post").classList.contains("ai-slop-blocker-hidden");
+        document.getElementById("result").textContent =
+          feedVisible && aiPostHidden && dynamicPostHidden && humanPostVisible ? "PASS" : "FAIL";
+      }, 500);
+    </script>
+  </body>
+</html>
