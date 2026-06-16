@@ -58,6 +58,7 @@ The package is written to `outputs/ai-slop-blocker-v0.4.1.zip`.
 
 ## Links
 
+- [Chrome Web Store](https://chromewebstore.google.com/detail/ai-slop-blocker/cndicgfmgedmlhnaglnmehofkfnnbpmc)
 - [Landing page](https://mt211211.github.io/ai-slop-blocker/)
 - [Optional Big Mac fund](https://buy.stripe.com/4gM6oAcYef713Vnf0if3a0h)
 - [Chrome Web Store submission guide](store/SUBMISSION_GUIDE.md)

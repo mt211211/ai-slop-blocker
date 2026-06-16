@@ -63,11 +63,13 @@ in submissions is causing extended review times.
 
 ## After Google approves it
 
-1. Copy the public Chrome Web Store listing URL.
-2. Replace the primary download link in `docs/index.html` with that URL.
-3. Change the button text to `Add to Chrome`.
-4. Remove the note saying the store link will appear after approval.
-5. Commit and push the update. GitHub Pages will redeploy automatically.
+The public listing is:
+
+https://chromewebstore.google.com/detail/ai-slop-blocker/cndicgfmgedmlhnaglnmehofkfnnbpmc
+
+The landing page primary button now points to the Chrome Web Store listing.
+Future package updates should continue through the existing item in the
+Developer Dashboard.
 
 ## Review notes
 
