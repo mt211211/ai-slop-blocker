@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="ai-slop-blocker-test-host" content="example.com">
+    <title>Generic site regression fixture</title>
+    <link rel="stylesheet" href="../extension/content.css">
+    <script>
+      window.chrome = {
+        storage: {
+          local: { get: async () => ({ enabled: true, personalRules: [] }) },
+          onChanged: { addListener: () => {} }
+        },
+        runtime: {
+          onMessage: { addListener: () => {} },
+          sendMessage: async () => {}
+        }
+      };
+    </script>
+  </head>
+  <body>
+    <main>
+      <section id="feed" class="content-feed">
+        <div id="ai-card" class="post-card">
+          <h2>New gallery</h2>
+          <p>Made with Stable Diffusion. #AIart</p>
+        </div>
+        <div id="human-card" class="post-card">
+          <h2>Human travel photos</h2>
+          <p>Shot on an old phone.</p>
+        </div>
+      </section>
+    </main>
+    <output id="result">PENDING</output>
+    <script src="../extension/content.js"></script>
+    <script>
+      window.setTimeout(() => {
+        const feedVisible = !document.getElementById("feed").classList.contains("ai-slop-blocker-hidden");
+        const aiCardHidden = document.getElementById("ai-card").classList.contains("ai-slop-blocker-hidden");
+        const humanCardVisible = !document.getElementById("human-card").classList.contains("ai-slop-blocker-hidden");
+        document.getElementById("result").textContent =
+          feedVisible && aiCardHidden && humanCardVisible ? "PASS" : "FAIL";
+      }, 350);
+    </script>
+  </body>
+</html>
+

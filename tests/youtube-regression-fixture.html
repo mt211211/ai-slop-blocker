@@ -44,6 +44,12 @@
           <ytd-rich-item-renderer id="user-blocked-card">
             <a id="video-title" href="https://www.youtube.com/watch?v=blocked" title="An unlabeled video">An unlabeled video</a>
           </ytd-rich-item-renderer>
+          <ytd-reel-video-renderer id="ai-short">
+            <a id="video-title" href="https://www.youtube.com/shorts/ai-short" title="AI animation short">AI animation short</a>
+          </ytd-reel-video-renderer>
+          <ytd-reel-video-renderer id="human-short">
+            <a id="video-title" href="https://www.youtube.com/shorts/human-short" title="A normal travel short">A normal travel short</a>
+          </ytd-reel-video-renderer>
         </div>
       </ytd-browse>
 
@@ -60,11 +66,13 @@
         const aiCardHidden = document.getElementById("ai-card").classList.contains("ai-slop-blocker-hidden");
         const humanCardVisible = !document.getElementById("human-card").classList.contains("ai-slop-blocker-hidden");
         const userBlockedCardHidden = document.getElementById("user-blocked-card").classList.contains("ai-slop-blocker-hidden");
+        const aiShortHidden = document.getElementById("ai-short").classList.contains("ai-slop-blocker-hidden");
+        const humanShortVisible = !document.getElementById("human-short").classList.contains("ai-slop-blocker-hidden");
         const browseVisible = !document.getElementById("browse").classList.contains("ai-slop-blocker-hidden");
         const playerHidden = document.getElementById("player-container-outer").classList.contains("ai-slop-blocker-hidden");
         const metadataHidden = document.getElementById("watch-metadata").classList.contains("ai-slop-blocker-hidden");
         document.getElementById("result").textContent =
-          aiCardHidden && humanCardVisible && userBlockedCardHidden && browseVisible && playerHidden && metadataHidden ? "PASS" : "FAIL";
+          aiCardHidden && humanCardVisible && userBlockedCardHidden && aiShortHidden && humanShortVisible && browseVisible && playerHidden && metadataHidden ? "PASS" : "FAIL";
       }, 350);
     </script>
   </body>

@@ -58,6 +58,7 @@ const chrome = chromeCandidates.find((candidate) => {
 if (chrome) {
   for (const fixture of [
     "automated-fixture.html",
+    "generic-site-regression-fixture.html",
     "personal-rules-fixture.html",
     "x-regression-fixture.html",
     "youtube-regression-fixture.html"

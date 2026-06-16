@@ -8,6 +8,7 @@
   const DEFAULT_STATE = { enabled: false, personalRules: [] };
 
   const DISCLOSURE_PATTERN = /\b(ai[- ]generated|#aigenerated|generated (?:by|with|using) (?:an? )?ai|created (?:by|with|using) (?:an? )?ai|made (?:by|with|using) (?:an? )?ai|written by ai|ai[- ]assisted|synthetic (?:media|content|image|video)|artificially generated|altered or synthetic|generative ai|ai overview|ai summary|powered by ai|ai (?:art|artwork|image|images|video|videos|animation|music|voice|film|movie|short film|trailer|commercial)|midjourney|dall[- ]?e|stable diffusion|sora ai|openai sora|veo 3|runway gen)\b/i;
+  const AI_MEDIA_PATTERN = /(?:#(?:aiart|aiartcommunity|aivideo|aivideos|aianimation|aimusic|aifilm|aimovie|aiimages|aigenerated|generativeai|midjourney|stablediffusion|dalle|sora|runwayml|veo3|klingai|pikalabs)\b|\b(?:ai[- ]generated|ai art|ai artwork|ai image|ai images|ai video|ai videos|ai animation|ai music|ai film|ai movie|ai short|made with ai|generated with ai|made in ai|midjourney|stable diffusion|dall[- ]?e|sora|openai sora|runway gen|runwayml|veo 3|google veo|kling ai|pika labs|hailuo|luma dream machine|grok image|made with grok|generated with grok)\b)/i;
   const YOUTUBE_MEDIA_PATTERN = /\b(?:ai\b.{0,45}\b(?:art|animation|commercial|film|movie|music|short film|trailer|video)|(?:art|animation|commercial|film|movie|music|short film|trailer|video)\b.{0,45}\bai)\b/i;
 
   const EXPLICIT_SELECTORS = [
@@ -38,7 +39,27 @@
     "ytd-compact-video-renderer",
     "ytd-playlist-video-renderer",
     "ytd-reel-item-renderer",
+    "ytd-reel-video-renderer",
+    "yt-shorts-lockup-view-model",
+    "ytm-shorts-lockup-view-model",
+    "ytm-shorts-lockup-view-model-v2",
     "yt-lockup-view-model"
+  ].join(",");
+  const GENERIC_ITEM_SELECTOR = [
+    "article",
+    "figure",
+    "li",
+    "[role='article']",
+    "[role='listitem']",
+    "[data-testid*='post' i]",
+    "[data-testid*='card' i]",
+    "[data-testid*='item' i]",
+    "[class*='post' i]",
+    "[class*='card' i]",
+    "[class*='tile' i]",
+    "[class*='item' i]",
+    "[class*='video' i]",
+    "[class*='entry' i]"
   ].join(",");
 
   const REPEATED_ITEM_SELECTOR = [
@@ -47,7 +68,12 @@
     "[role='listitem']",
     "article[data-testid='tweet']",
     "article[role='article']",
-    YOUTUBE_CARD_SELECTOR
+    YOUTUBE_CARD_SELECTOR,
+    "[data-testid*='post' i]",
+    "[data-testid*='card' i]",
+    "[class*='post' i]",
+    "[class*='card' i]",
+    "[class*='tile' i]"
   ].join(",");
 
   const PROTECTED_CONTAINER_SELECTOR = [
@@ -300,13 +326,17 @@
       return true;
     }
 
+    if (AI_MEDIA_PATTERN.test(value) && hasContentContext(element)) {
+      return true;
+    }
+
     const host = getCurrentHost();
     const isYouTube = host === "youtube.com" || host.endsWith(".youtube.com") || host === "youtu.be";
     if (!isYouTube || !YOUTUBE_MEDIA_PATTERN.test(value)) {
       return false;
     }
 
-    return Boolean(element?.closest?.(`${YOUTUBE_CARD_SELECTOR}, ytd-watch-metadata, #above-the-fold`));
+    return Boolean(element?.closest?.(`${YOUTUBE_CARD_SELECTOR}, ytd-watch-metadata, #above-the-fold, ytd-shorts`));
   }
 
   function resolveTargets(marker, explicitMatch) {
@@ -319,13 +349,13 @@
       return siteTargets;
     }
 
-    if (explicitMatch) {
-      return [marker];
+    const genericTarget = resolveGenericItemTarget(marker);
+    if (genericTarget) {
+      return [genericTarget];
     }
 
-    const semanticTarget = marker.closest("figure, article");
-    if (semanticTarget && !isProtectedContainer(semanticTarget)) {
-      return [semanticTarget];
+    if (explicitMatch) {
+      return [marker];
     }
 
     let current = marker;
@@ -356,9 +386,9 @@
         return [card];
       }
 
-      const watchMetadata = marker.closest("ytd-watch-metadata, #above-the-fold");
+      const watchMetadata = marker.closest("ytd-watch-metadata, #above-the-fold, ytd-shorts");
       if (watchMetadata) {
-        const player = document.querySelector("#player-container-outer, #player, ytd-player");
+        const player = document.querySelector("#player-container-outer, #player, #shorts-player, ytd-player");
         return player ? [watchMetadata, player] : [watchMetadata];
       }
 
@@ -366,6 +396,29 @@
     }
 
     return null;
+  }
+
+  function resolveGenericItemTarget(marker) {
+    const target = marker.closest?.(GENERIC_ITEM_SELECTOR);
+    return target && !isUnsafeTarget(target) ? target : null;
+  }
+
+  function hasContentContext(element) {
+    if (
+      !(element instanceof Element) ||
+      element.closest("header, footer, nav, [role='navigation'], [role='menu']")
+    ) {
+      return false;
+    }
+
+    const siteTarget = resolveSiteTargets(element)?.find((target) => !isUnsafeTarget(target));
+    return Boolean(
+      siteTarget ||
+      resolveGenericItemTarget(element) ||
+      element.closest?.("figure") ||
+      element.querySelector?.("img, picture, video, canvas") ||
+      element.closest?.("a[href*='/watch'], a[href*='/shorts/'], a[href*='/status/']")
+    );
   }
 
   function getCurrentHost() {
@@ -570,7 +623,7 @@
       return siteTarget;
     }
 
-    const genericTarget = marker.closest?.("article, figure, li, [role='article'], [role='listitem']");
+    const genericTarget = marker.closest?.(GENERIC_ITEM_SELECTOR);
     if (genericTarget && !isUnsafeTarget(genericTarget)) {
       return genericTarget;
     }
@@ -749,7 +802,7 @@
 
   function truncateText(value, maxLength = 55) {
     const compact = compactText(value);
-    return compact.length > maxLength ? `${compact.slice(0, maxLength - 1)}…` : compact;
+    return compact.length > maxLength ? `${compact.slice(0, maxLength - 1)}...` : compact;
   }
 
   function compactText(value) {
