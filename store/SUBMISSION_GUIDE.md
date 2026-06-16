@@ -9,6 +9,27 @@ Prepared June 13, 2026.
 3. Run `powershell -ExecutionPolicy Bypass -File scripts/package.ps1`.
 4. Confirm the newest `outputs/ai-slop-blocker-v*.zip` contains `manifest.json` at its root.
 
+## Update an existing published extension
+
+Use this path after AI Slop Blocker is already live. Do not create a new item.
+
+1. Sign in to the [Chrome Web Store Developer Dashboard](https://chrome.google.com/webstore/devconsole/).
+2. Select the existing **AI Slop Blocker** item.
+3. Open the **Package** tab.
+4. Select **Upload New Package**.
+5. Upload the newest ZIP from `outputs`, for example
+   `outputs/ai-slop-blocker-v0.4.1.zip`.
+6. Confirm the dashboard accepts the package and shows the new manifest
+   version.
+7. Update the listing text or release notes if needed. For this version, use
+   `store/UPDATE_NOTES_0.4.1.md`.
+8. Check the **Privacy practices** tab. If permissions or data usage have not
+   changed, the existing answers should still apply.
+9. Save the draft and select **Submit for review**.
+
+After Google approves the update, existing users will receive it automatically
+through Chrome's normal extension update flow.
+
 ## Upload and submit
 
 1. Sign in to the [Chrome Web Store Developer Dashboard](https://chrome.google.com/webstore/devconsole/).
