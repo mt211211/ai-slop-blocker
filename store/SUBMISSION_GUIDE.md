@@ -38,8 +38,14 @@ through Chrome's normal extension update flow.
 4. Complete the **Store listing** tab using `store/STORE_LISTING.md`.
 5. Upload:
    - `store/assets/store-icon-128.png` as the required store icon.
-   - `store/assets/screenshot-1280x800.png` as the required screenshot.
+   - The five screenshots in this order:
+     1. `store/assets/screenshot-01-popup-on-1280x800.png`
+     2. `store/assets/screenshot-02-blocked-card-1280x800.png`
+     3. `store/assets/screenshot-03-picker-1280x800.png`
+     4. `store/assets/screenshot-04-personal-filters-1280x800.png`
+     5. `store/assets/screenshot-05-restored-off-1280x800.png`
    - `store/assets/promo-small-440x280.png` as the required small promo tile.
+   - `store/assets/marquee-1400x560.png` as the marquee promotional image.
 6. Add the homepage, support, and privacy-policy URLs from the listing copy.
 7. Complete the **Privacy practices** tab using `store/PRIVACY_ANSWERS.md`.
 8. In **Distribution**, choose:

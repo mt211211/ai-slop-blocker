@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="ai-slop-blocker-test-host" content="example.com">
+    <title>AI Slop Blocker feed capture</title>
+    <link rel="stylesheet" href="capture-common.css">
+    <link rel="stylesheet" href="../../extension/content.css">
+    <script>
+      const captureMode = new URLSearchParams(location.search).get("mode") || "blocked";
+      const captureState = { enabled: captureMode !== "restored", personalRules: [] };
+      window.chrome = {
+        storage: {
+          local: {
+            get: async (defaults) => ({ ...defaults, ...captureState }),
+            set: async (changes) => Object.assign(captureState, changes)
+          },
+          onChanged: { addListener: () => {} }
+        },
+        runtime: {
+          onMessage: { addListener: () => {} },
+          sendMessage: async () => {}
+        }
+      };
+    </script>
+  </head>
+  <body>
+    <main class="capture-shell">
+      <section class="capture-copy" data-ai-slop-blocker-ui>
+        <p class="kicker" id="kicker">One item matched</p>
+        <h1 id="headline">The post goes.<br><span>The page stays.</span></h1>
+        <p class="lede" id="lede">Only the matching content slot is blanked. Navigation and nearby posts remain usable.</p>
+        <div class="fact"><span class="fact-dot"></span><span id="factText">Blocking is on</span></div>
+      </section>
+      <section class="browser-window" aria-label="A working feed with one content slot controlled by the extension">
+        <div class="browser-bar" data-ai-slop-blocker-ui><i></i><i></i><i></i><div class="address">the-internet.example/home</div></div>
+        <div class="site-layout">
+          <aside class="site-nav" data-ai-slop-blocker-ui><div class="site-mark"></div><div class="nav-line"></div><div class="nav-line"></div><div class="nav-line"></div><div class="nav-line"></div></aside>
+          <section class="feed" id="feed">
+            <div class="feed-heading" data-ai-slop-blocker-ui><strong>Latest posts</strong><span id="pageStatus">Scanning locally</span></div>
+            <div class="post-slot">
+              <article class="post-card" id="first-human-post">
+                <div class="post-head"><div class="avatar"></div><div class="identity"><strong>Sam Made This</strong><span>@samactuallymadeit</span></div></div>
+                <p>I repaired the wobbly kitchen chair. It is now merely emotionally unstable.</p>
+              </article>
+            </div>
+            <div class="post-slot" id="matched-slot">
+              <article class="post-card" id="matched-post">
+                <div class="post-head"><div class="avatar"></div><div class="identity"><strong>Infinite Content Lab</strong><span>@contentforever</span></div></div>
+                <p>AI-generated sunrise collection. Made with Stable Diffusion.</p>
+                <div class="media-strip"></div>
+              </article>
+              <div class="empty-space" id="emptyMarker" data-ai-slop-blocker-ui>Matching content hidden here</div>
+            </div>
+            <div class="post-slot">
+              <article class="post-card tone-teal" id="last-human-post">
+                <div class="post-head"><div class="avatar"></div><div class="identity"><strong>Maya Outdoors</strong><span>@mayaoutside</span></div></div>
+                <p>Actual clouds from an actual walk. My shoes remain full of mud.</p>
+              </article>
+            </div>
+          </section>
+        </div>
+      </section>
+    </main>
+    <script src="../../extension/content.js"></script>
+    <script>
+      if (captureMode === "restored") {
+        document.querySelector("#kicker").textContent = "Your switch, your choice";
+        document.querySelector("#headline").innerHTML = "Switch it off.<br><span>Everything returns.</span>";
+        document.querySelector("#lede").textContent = "Disabling the extension immediately restores every hidden item and stops scanning the page.";
+        document.querySelector("#factText").textContent = "Blocking is off";
+        document.querySelector("#pageStatus").textContent = "All content visible";
+      }
+
+      window.setTimeout(() => {
+        const hidden = document.querySelector("#matched-post").classList.contains("ai-slop-blocker-hidden");
+        document.body.classList.toggle("capture-ready", hidden);
+        if (hidden) {
+          document.querySelector("#matched-post").hidden = true;
+          document.querySelector("#emptyMarker").hidden = false;
+          document.querySelector("#pageStatus").textContent = "1 item hidden";
+        } else {
+          document.querySelector("#emptyMarker").hidden = true;
+        }
+        document.documentElement.dataset.captureReady = "true";
+      }, 450);
+    </script>
+  </body>
+</html>
+

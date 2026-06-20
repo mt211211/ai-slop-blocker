@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>AI Slop Blocker popup capture</title>
+    <link rel="stylesheet" href="capture-common.css">
+  </head>
+  <body>
+    <main class="capture-shell">
+      <section class="capture-copy" data-ai-slop-blocker-ui>
+        <p class="kicker">One clear switch</p>
+        <h1>On when<br>you want it.<br><span>Off when<br>you don't.</span></h1>
+        <p class="lede">Open the toolbar popup, flip one switch, and browse normally.</p>
+        <div class="fact"><span class="fact-dot"></span>No account required</div>
+      </section>
+      <section class="browser-window" aria-label="The extension popup open over a webpage">
+        <div class="browser-bar"><i></i><i></i><i></i><div class="address">the-internet.example/feed</div></div>
+        <div class="popup-stage">
+          <div class="popup-page-copy">
+            <strong>The rest of the page stays put.</strong>
+            <p>The popup reports what was hidden on the current page and keeps personal filters one click away.</p>
+          </div>
+          <iframe class="popup-frame" id="popupFrame" src="../../extension/popup/popup.html" title="AI Slop Blocker popup" scrolling="no"></iframe>
+        </div>
+      </section>
+    </main>
+    <script>
+      document.querySelector("#popupFrame").addEventListener("load", (event) => {
+        const popup = event.currentTarget.contentDocument;
+        popup.querySelector("#toggle").setAttribute("aria-checked", "true");
+        popup.querySelector("#toggle").setAttribute("aria-label", "Turn AI Slop Blocker off");
+        popup.querySelector("#statusText").textContent = "Blocking is ON";
+        popup.querySelector("#statusHint").textContent = "Explicit slop gets the blank-space treatment.";
+        popup.querySelector("#count").textContent = "2";
+        document.documentElement.dataset.captureReady = "true";
+      });
+    </script>
+  </body>
+</html>

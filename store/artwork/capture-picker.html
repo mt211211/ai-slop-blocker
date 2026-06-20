@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="ai-slop-blocker-test-host" content="x.com">
+    <title>AI Slop Blocker picker capture</title>
+    <link rel="stylesheet" href="capture-common.css">
+    <link rel="stylesheet" href="../../extension/content.css">
+    <script>
+      const captureState = { enabled: true, personalRules: [] };
+      let runtimeListener;
+      window.chrome = {
+        storage: {
+          local: {
+            get: async (defaults) => ({ ...defaults, ...captureState }),
+            set: async (changes) => Object.assign(captureState, changes)
+          },
+          onChanged: { addListener: () => {} }
+        },
+        runtime: {
+          onMessage: { addListener: (listener) => { runtimeListener = listener; } },
+          sendMessage: async () => {}
+        }
+      };
+    </script>
+  </head>
+  <body>
+    <main class="capture-shell">
+      <section class="capture-copy" data-ai-slop-blocker-ui>
+        <p class="kicker">Personal filters</p>
+        <h1>Unlabelled?<br><span>Teach it once.</span></h1>
+        <p class="lede">Pick an item, then remember that exact post or its creator. The rule stays private on your device.</p>
+        <div class="fact"><span class="fact-dot"></span>No uploads</div>
+      </section>
+      <section class="browser-window" aria-label="The personal filter picker selecting a post">
+        <div class="browser-bar" data-ai-slop-blocker-ui><i></i><i></i><i></i><div class="address">the-internet.example/home</div></div>
+        <div class="site-layout">
+          <aside class="site-nav" data-ai-slop-blocker-ui><div class="site-mark"></div><div class="nav-line"></div><div class="nav-line"></div><div class="nav-line"></div><div class="nav-line"></div></aside>
+          <section class="feed" id="feed" role="feed" aria-label="Home timeline">
+            <div class="feed-heading" data-ai-slop-blocker-ui><strong>Latest posts</strong><span>Picker active</span></div>
+            <div class="post-slot">
+              <article class="post-card tone-teal" data-testid="tweet">
+                <div class="post-head"><div class="avatar"></div><div class="identity"><strong>Normal Person</strong><span>@normalperson</span></div></div>
+                <p>Made soup. Forgot salt. Character-building lunch.</p>
+                <a href="/normalperson/status/101" hidden>Post link</a>
+              </article>
+            </div>
+            <div class="post-slot">
+              <article class="post-card" id="pickerTarget" data-testid="tweet">
+                <div class="post-head"><div class="avatar"></div><div class="identity"><strong><a href="/pixelmaker">Pixel Maker</a></strong><span>@pixelmaker</span></div></div>
+                <p>A suspiciously polished sunrise over six moons.</p>
+                <div class="media-strip"></div>
+                <a href="/pixelmaker/status/742" hidden>Post link</a>
+              </article>
+            </div>
+            <div class="post-slot">
+              <article class="post-card tone-teal" data-testid="tweet">
+                <div class="post-head"><div class="avatar"></div><div class="identity"><strong>Garden Desk</strong><span>@gardendesk</span></div></div>
+                <p>My basil has become too powerful.</p>
+                <a href="/gardendesk/status/303" hidden>Post link</a>
+              </article>
+            </div>
+          </section>
+        </div>
+      </section>
+    </main>
+    <script src="../../extension/content.js"></script>
+    <script>
+      window.setTimeout(() => {
+        runtimeListener({ type: "AI_SLOP_START_PICKER" }, {}, () => {});
+        const target = document.querySelector("#pickerTarget p");
+        target.dispatchEvent(new MouseEvent("mouseover", { bubbles: true }));
+        target.dispatchEvent(new MouseEvent("click", { bubbles: true, cancelable: true }));
+        document.documentElement.dataset.captureReady = "true";
+      }, 300);
+    </script>
+  </body>
+</html>
+

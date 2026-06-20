@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>AI Slop Blocker marquee</title>
+    <style>
+      * { box-sizing: border-box; }
+      html, body { width: 1400px; height: 560px; margin: 0; overflow: hidden; }
+      body {
+        background:
+          radial-gradient(circle at 93% 8%, #ffdf84 0 120px, transparent 330px),
+          linear-gradient(120deg, #ffcb45 0 56%, #f43f2f 56% 100%);
+        color: #171510;
+        font-family: Inter, Arial, sans-serif;
+      }
+      main { position: relative; display: grid; grid-template-columns: 610px 1fr; gap: 70px; align-items: center; height: 100%; padding: 62px 78px; }
+      .brand { display: flex; align-items: center; gap: 16px; margin-bottom: 26px; font-size: 19px; font-weight: 1000; }
+      .brand img { width: 66px; height: 66px; border: 3px solid #171510; border-radius: 17px; box-shadow: 6px 6px 0 #171510; }
+      h1 { margin: 0; font-size: 92px; line-height: .88; letter-spacing: -.075em; }
+      h1 span { color: #fffdf8; text-shadow: 3px 3px 0 #171510; }
+      p { margin: 25px 0 0; max-width: 520px; font-size: 20px; font-weight: 750; line-height: 1.4; }
+      .window { transform: rotate(2deg); border: 4px solid #171510; border-radius: 22px; overflow: hidden; background: #fffdf8; box-shadow: 15px 15px 0 #171510; }
+      .bar { display: flex; align-items: center; gap: 8px; height: 53px; border-bottom: 3px solid #171510; padding: 0 15px; background: #f7f1e5; }
+      .bar i { width: 12px; height: 12px; border: 2px solid #171510; border-radius: 50%; background: #f43f2f; }
+      .bar i:nth-child(2) { background: #ffcb45; } .bar i:nth-child(3) { background: #168c8c; }
+      .bar div { flex: 1; margin-left: 7px; border: 2px solid #171510; border-radius: 99px; padding: 7px 12px; color: #665f51; font: 700 11px monospace; }
+      .feed { padding: 23px; }
+      .row { display: grid; grid-template-columns: 40px 1fr; gap: 13px; min-height: 95px; border: 2px solid #171510; border-radius: 13px; padding: 14px; }
+      .row + .row { margin-top: 13px; }
+      .row.blank { border-color: #d6d0c4; background: repeating-linear-gradient(-45deg, #fffdf8, #fffdf8 12px, #f2ecdf 12px, #f2ecdf 24px); }
+      .avatar { width: 38px; height: 38px; border: 2px solid #171510; border-radius: 50%; background: #168c8c; }
+      .line { height: 10px; margin: 5px 0 10px; border-radius: 99px; background: #171510; }
+      .line.muted { width: 72%; background: #d6d0c4; }
+      .stamp { grid-column: 1 / -1; align-self: center; justify-self: center; transform: rotate(-7deg); border: 7px double #f43f2f; border-radius: 7px; padding: 5px 12px; color: #f43f2f; font: 1000 31px monospace; letter-spacing: -.08em; }
+      .pill { position: absolute; right: 62px; top: 38px; transform: rotate(-4deg); border: 3px solid #171510; border-radius: 99px; padding: 10px 15px; background: #fffdf8; font-size: 12px; font-weight: 1000; text-transform: uppercase; box-shadow: 5px 5px 0 #171510; }
+    </style>
+  </head>
+  <body>
+    <main>
+      <section>
+        <div class="brand"><img src="../../extension/icons/icon-128.png" alt="">AI Slop Blocker</div>
+        <h1>Less slop.<br><span>More blank.</span></h1>
+        <p>Hide matching machine-made content while the rest of the page keeps doing its thing.</p>
+      </section>
+      <section class="window" aria-label="A feed with one hidden item">
+        <div class="bar"><i></i><i></i><i></i><div>the-internet.example</div></div>
+        <div class="feed">
+          <div class="row blank"><div class="stamp">BLOCKED</div></div>
+          <div class="row"><div class="avatar"></div><div><div class="line"></div><div class="line muted"></div></div></div>
+          <div class="row"><div class="avatar"></div><div><div class="line"></div><div class="line muted"></div></div></div>
+        </div>
+      </section>
+      <div class="pill">Free + local only</div>
+    </main>
+  </body>
+</html>
+
